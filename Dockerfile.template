@@ -43,7 +43,7 @@ COPY . .
 # RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
 
 # Prepare for install
-RUN ln /usr/bin/python2.7 /usr/bin/python2
+# RUN ln /usr/bin/python2.7 /usr/bin/python2
 RUN mkdir /opt/dump1090
 # Clone, build and install dump1090 from source.
 RUN cd /opt/dump1090 && git clone https://github.com/mutability/dump1090.git /opt/dump1090 
