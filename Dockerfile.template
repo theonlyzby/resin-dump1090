@@ -34,9 +34,9 @@ COPY . .
 # RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
-RUN cd /opt
+RUN cd /opt/dump1090
 # RUN git clone git://github.com/MalcolmRobb/dump1090.git
-RUN cd dump1090
+# RUN cd dump1090
 RUN cmake -D CMAKE_BUILD_TYPE=RELEASE
 RUN make
 RUN cd ..
