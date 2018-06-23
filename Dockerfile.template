@@ -26,10 +26,10 @@ RUN git clone git://git.osmocom.org/rtl-sdr.git
 RUN cd rtl-sdr
 RUN mkdir build
 RUN cd build
-#RUN cmake ../ -DINSTALL_UDEV_RULES=ON
-RUN make
-RUN make install
-RUN ldconfig
+CMD cmake ../ -DINSTALL_UDEV_RULES=ON
+CMD make
+CMD make install
+CMD ldconfig
 RUN cd /opt
 RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
@@ -37,15 +37,15 @@ RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 RUN cd /opt
 RUN git clone git://github.com/MalcolmRobb/dump1090.git
 RUN cd dump1090
-RUN make
+CMD make
 RUN cd ..
-RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
-RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
+CMD printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
+CMD cp ./nortl.conf /etc/modprobe.d/notrl.conf
 
 # Copy Startup Script
 COPY /opt/dump1090.sh /etc/init.d/dump1090.sh
-RUN chmod +x /etc/init.d/dump1090.sh
-RUN update-rc.d dump1090.sh defaults
+CMD chmod +x /etc/init.d/dump1090.sh
+CMD update-rc.d dump1090.sh defaults
 
 # Starts up the Docker on the device
 CMD [ "bash" , "/opt/start.sh"]
