@@ -18,22 +18,23 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /
 
 # Install RTL-SDR Driver
-#RUN cd /opt
-#RUN git clone git://git.osmocom.org/rtl-sdr.git
-#RUN cd rtl-sdr
-#RUN mkdir build
-#RUN cd build
-#RUN cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
-#RUN make
-#RUN sudo make install
-#RUN sudo ldconfig
-#RUN cd /opt
-#RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
+# RUN cd /opt
+# RUN git clone git://git.osmocom.org/rtl-sdr.git
+# RUN cd rtl-sdr
+# RUN mkdir build
+# RUN cd build
+# RUN cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
+# RUN make
+# RUN sudo make install
+# RUN sudo ldconfig
+# RUN cd /opt
+# RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
 RUN cd /opt
-RUN git clone git://github.com/MalcolmRobb/dump1090.git
+# RUN git clone git://github.com/MalcolmRobb/dump1090.git
 RUN cd dump1090
+RUN cmake -D CMAKE_BUILD_TYPE=RELEASE
 RUN make
 RUN cd ..
 RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
