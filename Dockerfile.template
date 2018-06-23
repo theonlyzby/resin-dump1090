@@ -24,7 +24,7 @@ WORKDIR /
 #RUN mkdir build
 #RUN cd build
 #RUN cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
-#RUN make -j4
+#RUN make
 #RUN sudo make install
 #RUN sudo ldconfig
 #RUN cd /opt
@@ -33,7 +33,7 @@ WORKDIR /
 # Install dump1090
 RUN git clone git://github.com/MalcolmRobb/dump1090.git
 RUN cd dump1090
-RUN make -j4
+RUN make
 RUN cd ..
 RUN cp ./dump1090/dump1090.sh /etc/init.d/dump1090.sh
 RUN chmod +x /etc/init.d/dump1090.sh
