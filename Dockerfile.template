@@ -21,17 +21,17 @@ WORKDIR /
 COPY . .
 
 # Install RTL-SDR Driver
-# RUN cd /opt
-# RUN git clone git://git.osmocom.org/rtl-sdr.git
-# RUN cd rtl-sdr
-# RUN mkdir build
-# RUN cd build
-# RUN cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
-# RUN make
-# RUN sudo make install
-# RUN sudo ldconfig
-# RUN cd /opt
-# RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
+RUN cd /opt
+RUN git clone git://git.osmocom.org/rtl-sdr.git
+RUN cd rtl-sdr
+RUN mkdir build
+RUN cd build
+RUN cmake ../ -DINSTALL_UDEV_RULES=ON
+RUN make
+RUN make install
+RUN ldconfig
+RUN cd /opt
+RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
 RUN cd /opt
@@ -41,10 +41,6 @@ RUN cd /opt
 # RUN cd ..
 # RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
 # RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
-
-#RUN git clone git://github.com/antirez/dump1090.git
-#RUN cd dump1090
-#RUN make
 
 # Copy Startup Script
 #COPY /opt/dump1090.sh /etc/init.d/dump1090.sh
