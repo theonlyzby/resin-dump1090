@@ -31,10 +31,11 @@ WORKDIR /
 #RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
-#RUN git clone git://github.com/MalcolmRobb/dump1090.git
-#RUN cd dump1090
-#RUN make
-#RUN cd ..
+RUN cd /opt
+RUN git clone git://github.com/MalcolmRobb/dump1090.git
+RUN cd dump1090
+RUN make
+RUN cd ..
 RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
 RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
 
