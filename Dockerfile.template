@@ -21,7 +21,7 @@ WORKDIR /
 RUN cd /opt
 RUN git clone git://git.osmocom.org/rtl-sdr.git
 RUN cd rtl-sdr
-RUN cmake ./ -DINSTALL_UDEV_RULES=ON
+RUN cmake -DINSTALL_UDEV_RULES=ON
 RUN mkdir build
 RUN cd build
 RUN make -j4
