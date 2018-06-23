@@ -43,9 +43,9 @@ CMD printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' 
 CMD cp ./nortl.conf /etc/modprobe.d/notrl.conf
 
 # Copy Startup Script
-COPY /opt/dump1090.sh /etc/init.d/dump1090.sh
-CMD chmod +x /etc/init.d/dump1090.sh
-CMD update-rc.d dump1090.sh defaults
+#COPY /opt/dump1090.sh /etc/init.d/dump1090.sh
+#CMD chmod +x /etc/init.d/dump1090.sh
+#CMD update-rc.d dump1090.sh defaults
 
 # Starts up the Docker on the device
 CMD [ "bash" , "/opt/start.sh"]
