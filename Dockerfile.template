@@ -9,7 +9,7 @@ FROM resin/rpi-raspbian:stretch
 # use apt-get if you need to install dependencies,
 # Error on: pi-bluetooth raspberrypi-sys-mods raspi-config rpi-update
 RUN apt-get update -y && apt-get upgrade -y && apt-get dist-upgrade -y
-RUN apt-get install -y git-core git cmake libusb-1.0-0-dev build-essential nano cmake
+RUN apt-get install -y git-core git cmake libusb-1.0-0-dev build-essential nano
 
 #  Clean-up apt-get
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -23,7 +23,7 @@ RUN git clone git://git.osmocom.org/rtl-sdr.git
 RUN cd rtl-sdr
 RUN mkdir build
 RUN cd build
-RUN cmake ../ -DINSTALL_UDEV_RULES=ON
+RUN cmake .. -DINSTALL_UDEV_RULES=ON
 RUN make -j4
 RUN sudo make install
 RUN sudo ldconfig
