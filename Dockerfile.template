@@ -34,13 +34,21 @@ COPY . .
 # RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
-RUN cd /opt/dump1090
+# RUN cd /opt/dump1090
 # RUN git clone git://github.com/MalcolmRobb/dump1090.git
 # RUN cd dump1090
-RUN make
-RUN cd ..
-RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
-RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
+# RUN make
+# RUN cd ..
+# RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
+# RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
+
+# Prepare for install
+RUN ln /usr/bin/python2.7 /usr/bin/python2
+RUN mkdir /opt/dump1090
+# Clone, build and install dump1090 from source.
+RUN cd /opt/dump1090 && git clone https://github.com/mutability/dump1090.git /opt/dump1090 
+RUN cd /opt/dump1090 && dpkg-buildpackage -b -d
+RUN cd /opt          && dpkg -i dump1090-mutability_1.15~dev_armhf.deb
 
 # Copy Startup Script
 COPY /opt/dump1090.sh /etc/init.d/dump1090.sh
