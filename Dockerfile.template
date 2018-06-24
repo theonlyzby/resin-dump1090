@@ -27,7 +27,7 @@ RUN cd /srv \
     && make \
     && make install \
     && ldconfig \
-    && cd /opt \
+    && cd /srv \
     && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
