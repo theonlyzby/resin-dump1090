@@ -18,26 +18,26 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /srv
 
 # Install RTL-SDR Driver
-RUN cd /srv
-RUN git clone git://git.osmocom.org/rtl-sdr.git
-RUN cd rtl-sdr
-RUN mkdir build
-RUN cd build
-RUN cmake ../ -DINSTALL_UDEV_RULES=ON
-RUN make
-RUN make install
-RUN ldconfig
-RUN cd /opt
-RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
+RUN cd /srv \
+    && git clone git://git.osmocom.org/rtl-sdr.git \
+    && cd rtl-sdr \
+    && mkdir build \
+    && cd build \
+    && cmake ../ -DINSTALL_UDEV_RULES=ON \
+    && make \
+    && make install \
+    && ldconfig \
+    && cd /opt \
+    && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
-RUN cd /srv
-RUN git clone git://github.com/MalcolmRobb/dump1090.git
-RUN cd dump1090
-RUN make
-RUN cd ..
-RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
-RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
+RUN cd /srv \
+    && git clone git://github.com/MalcolmRobb/dump1090.git \
+    && cd dump1090 \
+    && make \
+    && cd .. \
+    && printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf \
+    && cp ./nortl.conf /etc/modprobe.d/notrl.conf
 
 # This will copy all files from our root to the working  directory in the container
 COPY /opt/start.sh /opt/start.sh
