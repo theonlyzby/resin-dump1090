@@ -18,6 +18,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /srv
 
 # Install RTL-SDR Driver
+# Install dump1090
 RUN cd /srv \
     && git clone git://git.osmocom.org/rtl-sdr.git \
     && cd rtl-sdr \
@@ -26,18 +27,17 @@ RUN cd /srv \
     && cmake ../ -DINSTALL_UDEV_RULES=ON \
     && make \
     && make install \
-    && ldconfig
-#    && cd .. \
-#    && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
-
-# Install dump1090
-RUN cd /srv \
+    && ldconfig \
+    && cd /srv \
     && git clone git://github.com/MalcolmRobb/dump1090.git \
     && cd dump1090 \
     && make \
     && cd .. \
     && printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf \
     && cp ./nortl.conf /etc/modprobe.d/notrl.conf
+
+#    && cd .. \
+#    && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # This will copy all files from our root to the working  directory in the container
 COPY /opt/start.sh /opt/start.sh
