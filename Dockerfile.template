@@ -40,7 +40,8 @@ RUN cd /srv \
 #    && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # This will copy all files from our root to the working  directory in the container
-COPY /opt/start.sh /opt/start.sh
+WORKDIR /
+COPY . .
 
 # Starts up the Docker on the device
 CMD [ "bash" , "/opt/start.sh"]
