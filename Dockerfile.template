@@ -21,7 +21,7 @@ WORKDIR /
 COPY . .
 
 # Install RTL-SDR Driver
-RUN cd /opt
+RUN cd /srv
 RUN git clone git://git.osmocom.org/rtl-sdr.git
 RUN cd rtl-sdr
 RUN mkdir build
@@ -34,18 +34,13 @@ RUN cd /opt
 RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
-RUN cd /opt
+RUN cd /srv
 RUN git clone git://github.com/MalcolmRobb/dump1090.git
 RUN cd dump1090
 CMD make
 RUN cd ..
 CMD printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
 CMD cp ./nortl.conf /etc/modprobe.d/notrl.conf
-
-# Copy Startup Script
-#COPY /opt/dump1090.sh /etc/init.d/dump1090.sh
-#CMD chmod +x /etc/init.d/dump1090.sh
-#CMD update-rc.d dump1090.sh defaults
 
 # Starts up the Docker on the device
 CMD [ "bash" , "/opt/start.sh"]
