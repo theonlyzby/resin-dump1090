@@ -23,10 +23,10 @@ RUN git clone git://git.osmocom.org/rtl-sdr.git
 RUN cd rtl-sdr
 RUN mkdir build
 RUN cd build
-CMD cmake ../ -DINSTALL_UDEV_RULES=ON
-CMD make
-CMD make install
-CMD ldconfig
+RUN cmake ../ -DINSTALL_UDEV_RULES=ON
+RUN make
+RUN make install
+RUN ldconfig
 RUN cd /opt
 RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
@@ -34,14 +34,13 @@ RUN cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 RUN cd /srv
 RUN git clone git://github.com/MalcolmRobb/dump1090.git
 RUN cd dump1090
-CMD make
+RUN make
 RUN cd ..
-CMD printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
-CMD cp ./nortl.conf /etc/modprobe.d/notrl.conf
+RUN printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
+RUN cp ./nortl.conf /etc/modprobe.d/notrl.conf
 
 # This will copy all files from our root to the working  directory in the container
-WORKDIR /
-COPY . .
+COPY /opt/start.sh /opt/start.sh
 
 # Starts up the Docker on the device
 CMD [ "bash" , "/opt/start.sh"]
