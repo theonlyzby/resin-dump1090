@@ -15,10 +15,7 @@ RUN apt-get install -y git-core git cmake make libusb-1.0-0-dev build-essential 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Defines our working directory in container
-WORKDIR /
-
-# This will copy all files from our root to the working  directory in the container
-COPY . .
+WORKDIR /srv
 
 # Install RTL-SDR Driver
 RUN cd /srv
@@ -41,6 +38,10 @@ CMD make
 RUN cd ..
 CMD printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf
 CMD cp ./nortl.conf /etc/modprobe.d/notrl.conf
+
+# This will copy all files from our root to the working  directory in the container
+WORKDIR /
+COPY . .
 
 # Starts up the Docker on the device
 CMD [ "bash" , "/opt/start.sh"]
