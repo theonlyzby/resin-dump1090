@@ -34,7 +34,7 @@ RUN cd /srv \
     && make \
     && cd .. \
     && printf 'blacklist dvb_usb_rtl28xxu\nblacklist rtl2832\nblacklist rtl2830\n' > nortl.conf \
-    && cp ./nortl.conf /etc/modprobe.d/notrl.conf
+    && cp ./nortl.conf /etc/modprobe.d/no-rtl.conf
 
 #    && cd .. \
 #    && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
