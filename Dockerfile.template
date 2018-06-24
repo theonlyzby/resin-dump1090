@@ -26,9 +26,9 @@ RUN cd /srv \
     && cmake ../ -DINSTALL_UDEV_RULES=ON \
     && make \
     && make install \
-    && ldconfig \
-    && cd .. \
-    && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
+    && ldconfig
+#    && cd .. \
+#    && cp ./rtl-sdr/rtl-sdr.rules /etc/udev/rules.d/
 
 # Install dump1090
 RUN cd /srv \
